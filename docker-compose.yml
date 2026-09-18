@@ -1,15 +1,16 @@
 services:
   drinkbot:
     build: .
-    image: drinkbot
     container_name: drinkbot
+
     environment:
       TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN}
+
     restart: unless-stopped
-    # Dữ liệu quán + người nằm trong volume này — rebuild image không mất
+
     volumes:
       - drinkbot-data:/data
-    # Bot chỉ gọi ra Telegram, không mở cổng nào
+
     logging:
       driver: json-file
       options:
