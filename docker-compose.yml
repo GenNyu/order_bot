@@ -3,7 +3,7 @@ services:
     build: .
     image: drinkbot
     container_name: drinkbot
-    env_file: 
+    environment:
       TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN}
     restart: unless-stopped
     # Dữ liệu quán + người nằm trong volume này — rebuild image không mất
