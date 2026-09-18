@@ -1,0 +1,19 @@
+services:
+  drinkbot:
+    build: .
+    image: drinkbot
+    container_name: drinkbot
+    env_file: .env
+    restart: unless-stopped
+    # Dữ liệu quán + người nằm trong volume này — rebuild image không mất
+    volumes:
+      - drinkbot-data:/data
+    # Bot chỉ gọi ra Telegram, không mở cổng nào
+    logging:
+      driver: json-file
+      options:
+        max-size: "5m"
+        max-file: "3"
+
+volumes:
+  drinkbot-data:
