@@ -6,17 +6,24 @@ def parse_duration(text: str) -> int:
     if not text:
         raise ValueError("Empty string")
 
-    pattern = r'^((\d+)h)?((\d+)m)?((\d+)s)?$'
+    text = text.strip()
+    pattern = r'^(\d+h)?\s*(\d+m)?\s*(\d+s)?$'
     match = re.fullmatch(pattern, text)
 
     if not match:
         raise ValueError(f"Invalid duration format: {text}")
 
-    hours = int(match.group(2)) if match.group(2) else 0
-    minutes = int(match.group(4)) if match.group(4) else 0
-    seconds = int(match.group(6)) if match.group(6) else 0
+    hours = minutes = seconds = 0
 
-    # Must have at least one component
+    for part in match.groups():
+        if part:
+            if part.endswith('h'):
+                hours = int(part[:-1])
+            elif part.endswith('m'):
+                minutes = int(part[:-1])
+            elif part.endswith('s'):
+                seconds = int(part[:-1])
+
     if hours == 0 and minutes == 0 and seconds == 0:
         raise ValueError(f"Invalid duration format: {text}")
 
