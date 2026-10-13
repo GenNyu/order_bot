@@ -9,6 +9,11 @@ class ParseDurationTest(unittest.TestCase):
         self.assertEqual(parse_duration("1h30m"), 5400)
         self.assertEqual(parse_duration("2h5s"), 7205)
 
+    def test_days(self):
+        self.assertEqual(parse_duration("1d"), 86400)
+        self.assertEqual(parse_duration("1d2h"), 93600)
+        self.assertEqual(parse_duration("2d3h4m5s"), 183845)
+
     def test_invalid(self):
         for bad in ["", "abc", "10x", "1h1h"]:
             with self.assertRaises(ValueError):
